@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int hammingDistance(int n1, int n2) // Calculating hamming distance
+{
+    int x = n1 ^ n2;
+    int setBits = 0;
+ 
+    while (x > 0) {
+        setBits += x & 1;
+        x >>= 1;
+    }
+ 
+    return setBits;
+}
+
+int main(){
+    int arr[]={1,3,5};
+    int sum=0;
+    for(int i=0;i<3;i++){
+        for(int j=0;j<3;j++){
+                sum+=(hammingDistance(i,j));
+        }
+    }
+    cout<<sum;
+    return 0;
+}

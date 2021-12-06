@@ -1,0 +1,21 @@
+// If every bit of the tuple of length l is either 0 or 1, then the linear code is binary.
+// To check this we can iterate over the tuples and check for each bit is either 0 or 1, if not then it wont we a binary linear code.
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    string s="0110";
+    int n = s.size();
+    bool f = 0;
+    for(int i=0;i<n;i++){
+        if(s[i]!='0' and s[i]!='1'){
+            f=1;
+            cout<<"NO"<<"\n";
+            break;
+        }
+    }
+    if(f==0){
+        cout<<"YES"<<"\n";
+    }
+    return 0;
+}

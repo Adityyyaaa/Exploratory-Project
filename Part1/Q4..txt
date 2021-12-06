@@ -1,0 +1,59 @@
+// If every bit of the tuple of length l is either 0 or 1, then the linear code is binary.
+// To check this we can iterate over the tuples and check for each bit is either 0 or 1, if not then it wont we a binary linear code.
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int hammingDistance(int n1, int n2)
+{
+    int x = n1 ^ n2;
+    int setBits = 0;
+ 
+    while (x > 0) {
+        setBits += x & 1;
+        x >>= 1;
+    }
+ 
+    return setBits;
+}
+
+int binaryToDecimal(int n)
+{
+    int num = n;
+    int dec_value = 0;
+ 
+    // Initializing base value to 1, i.e 2^0
+    int base = 1;
+ 
+    int temp = num;
+    while (temp) {
+        int last_digit = temp % 10;
+        temp = temp / 10;
+ 
+        dec_value += last_digit * base;
+ 
+        base = base * 2;
+    }
+ 
+    return dec_value;
+}
+
+
+int main(){
+    int arr[]={0000, 0101, 1010,1111};
+    int darr[4];
+    for(int i=0;i<4;i++){
+        darr[i]= binaryToDecimal(arr[i]);
+    }
+    int min_distance=0;
+    for(int i=0;i<4;i++){
+        for(int j=i+1;j<4;j++){
+            if(hammingDistance(darr[i],darr[j])>0){
+                min_distance=hammingDistance(darr[i],darr[j]);
+            }
+        }
+    }
+    cout<<min_distance;
+    return 0;
+}

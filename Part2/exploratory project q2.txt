@@ -1,0 +1,107 @@
+#include <stdio.h>
+int main()
+{
+    int a[1][3],b[3][5],product[1][5];
+    int i,j,m;
+    int sum=0;
+    //print the message
+    printf("Enter the elements of matrix a:\n");
+    for(i=0;i<1;i++)
+    {
+        for(j=0;j<3;j++)
+        {
+            scanf("%d",&a[i][j]);
+        }
+    }
+    printf("Message\n");
+    for(i=0;i<1;i++)
+    {
+        for(j=0;j<3;j++)
+        {
+            printf("%d ",a[i][j]);
+        }
+        printf("\n");
+    }
+    //print the generator matrix
+    printf("Enter the elements of matrix b:\n");
+    for(i=0;i<3;i++)
+    {
+        for(j=0;j<5;j++)
+        {
+            scanf("%d",&b[i][j]);
+        }
+    }
+    printf("Generator matrix\n");
+    for(i=0;i<3;i++)
+    {
+        for(j=0;j<5;j++)
+        {
+           printf("%d ",b[i][j]);
+        }
+         printf("\n");
+     }
+     //calculate the codewords
+    for(i=0;i<1;i++)
+    {
+        for(j=0;j<5;j++)
+        {
+            for(m=0;m<3;m++)
+            {
+                sum+=a[i][m]*b[m][j];
+            }
+            product[i][j]=sum;
+            if(product[i][j]>1)
+            {
+                product[i][j]=product[i][j]%2;
+            }
+            sum=0;
+            
+        }
+    }
+    //print the codewords
+    printf("codewords\n");
+    for(i=0;i<1;i++)
+    {
+        for(j=0;j<5;j++)
+        {
+            printf("%d ",product[i][j]);
+        }
+        printf("\n");
+    }
+    
+
+    return 0;
+}
+
+
+
+OUTPUT----
+
+Enter the elements of matrix a:
+1
+0
+1
+Message
+1 0 1 
+Enter the elements of matrix b:
+1
+0
+1
+1
+0
+0
+1
+0
+1
+1
+0
+0
+1
+0
+1
+Generator matrix
+1 0 1 1 0 
+0 1 0 1 1 
+0 0 1 0 1 
+codewords
+1 0 0 1 1 

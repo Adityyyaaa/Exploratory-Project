@@ -1,0 +1,260 @@
+
+#include <stdio.h>
+int compareMatrices(int a[][2],int b[][2]){
+    int i;
+    for(i=0; i<2; i++){
+        if (a[0][i]!=b[0][i])
+        return 0;
+    }
+    return 1;
+}
+int main()
+{
+    int c[4]={0000,1011,0101,1110};
+    int H[2][4],T[4][2],W[1][4],S[1][2],u1[1][4],u2[1][4],u3[1][4],u4[1][4],v[1][4],s1[1][2],s2[1][2],s3[1][2],s4[1][2];
+    int i,j,k,m,n;
+    int sum=0;
+    //enter the parity check matrix
+    
+    printf("Enter H\n");
+    for(i=0;i<2;i++)
+    {
+        for(j=0;j<4;j++)
+        {
+            scanf("%d",&H[i][j]);
+        }
+    }
+    printf("Matrix H\n");
+    for(i=0;i<2;i++)
+    {
+        for(j=0;j<4;j++)
+        {
+            printf("%d ",H[i][j]);
+        }
+        printf("\n");
+    }
+    //find the transpose matrix of H
+    for(i=0;i<4;i++)
+    {
+        for(j=0;j<2;j++)
+        {
+            T[i][j]=H[j][i];
+        }
+    }
+    
+    //enter the received word
+    printf("Enter W\n");
+    for(i=0;i<1;i++)
+    {
+        for(j=0;j<4;j++)
+        {
+            scanf("%d",&W[i][j]);
+        }
+    }
+    printf("Received word is\n");
+    for(i=0;i<1;i++)
+    {
+        for(j=0;j<4;j++)
+        {
+            printf("%d ",W[i][j]);
+        }
+        printf("\n");
+    }
+    //compute the syndrome
+    for(i=0;i<1;i++)
+    {
+        for(j=0;j<2;j++)
+        {
+            for(k=0;k<4;k++)
+            {
+                sum+=W[i][k]*T[k][j];
+            }
+            S[i][j]=sum;
+            if(S[i][j]>1)
+            {
+                S[i][j]=S[i][j]%2;
+            }
+            sum=0;
+        }
+    }
+    printf("Syndrome\n");
+    for(i=0;i<1;i++)
+    {
+        for(j=0;j<2;j++)
+        {
+            printf("%d ",S[i][j]);
+        }
+        printf("\n");
+    }
+    //coset leader
+    printf("Enter u1\n");
+    for(i=0;i<1;i++)
+    {
+        for(j=0;j<4;j++)
+        {
+            scanf("%d",&u1[i][j]);
+        }
+    }
+    printf("Enter u2\n");
+    for(i=0;i<1;i++)
+    {
+        for(j=0;j<4;j++)
+        {
+            scanf("%d",&u2[i][j]);
+        }
+    }
+    printf("Enter u3\n");
+    for(i=0;i<1;i++)
+    {
+        for(j=0;j<4;j++)
+        {
+            scanf("%d",&u3[i][j]);
+        }
+    }
+    printf("Enter u4\n");
+    for(i=0;i<1;i++)
+    {
+        for(j=0;j<4;j++)
+        {
+            scanf("%d",&u4[i][j]);
+        }
+    }
+    //s(u)
+    printf("enter s1\n");
+    for(i=0;i<1;i++)
+    {
+        for(j=0;j<2;j++)
+        {
+            scanf("%d",&s1[i][j]);
+        }
+    }
+    printf("enter s2\n");
+    for(i=0;i<1;i++)
+    {
+        for(j=0;j<2;j++)
+        {
+            scanf("%d",&s2[i][j]);
+        }
+    }
+    printf("enter s3\n");
+    for(i=0;i<1;i++)
+    {
+        for(j=0;j<2;j++)
+        {
+            scanf("%d",&s3[i][j]);
+        }
+    }
+    printf("enter s4\n");
+    for(i=0;i<1;i++)
+    {
+        for(j=0;j<2;j++)
+        {
+            scanf("%d",&s4[i][j]);
+        }
+    }
+    printf("codeword\n");
+    for(i=0;i<1;i++)
+    {
+        for(j=0;j<4;j++)
+        {                      
+            if (compareMatrices(S,s1))
+            {
+                v[i][j]=W[i][j]+u1[i][j];
+                if(v[i][j]>1)
+                {
+                    v[i][j]=v[i][j]%2;
+                }
+            }
+            else if (compareMatrices(S,s2))
+            {
+                v[i][j]=W[i][j]+u2[i][j];
+                if(v[i][j]>1)
+                {
+                    v[i][j]=v[i][j]%2;
+                }
+            }
+            else if (compareMatrices(S,s3))
+            {
+                v[i][j]=W[i][j]+u3[i][j];
+                if(v[i][j]>1)
+                {
+                    v[i][j]=v[i][j]%2;
+                }
+            }
+            else 
+            {
+                v[i][j]=W[i][j]+u4[i][j];
+                if(v[i][j]>1)
+                {
+                    v[i][j]=v[i][j]%2;
+                }
+            }                               
+            printf("%d ",v[i][j]);
+        }
+        printf("\n");
+    }
+   
+    return 0;
+}
+
+
+
+OUTPUT---
+
+
+
+Enter H
+1
+0
+1
+0
+1
+1
+0
+1
+Matrix H
+1 0 1 0 
+1 1 0 1 
+Enter W
+1
+1
+0
+1
+Received word is
+1 1 0 1 
+Syndrome
+1 1 
+Enter u1
+0
+0
+0
+0
+Enter u2
+0
+0
+0
+1
+Enter u3
+0
+0
+1
+0
+Enter u4
+1
+0
+0
+0
+enter s1
+0
+0
+enter s2
+0
+1
+enter s3
+1
+0
+enter s4
+1
+1
+codeword
+0 1 0 1 

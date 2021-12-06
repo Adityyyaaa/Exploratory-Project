@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int hammingDistance(int n1, int n2)
+{
+    int x = n1 ^ n2;
+    int setBits = 0;
+ 
+    while (x > 0) {
+        setBits += x & 1;
+        x >>= 1;
+    }
+ 
+    return setBits;
+}
+
+int binaryToDecimal(int n)
+{
+    int num = n;
+    int dec_value = 0;
+ 
+    // Initializing base value to 1, i.e 2^0
+    int base = 1;
+ 
+    int temp = num;
+    while (temp) {
+        int last_digit = temp % 10;
+        temp = temp / 10;
+ 
+        dec_value += last_digit * base;
+ 
+        base = base * 2;
+    }
+ 
+    return dec_value;
+}
+
+int main(){
+    int S[]= {000,111};
+    int c = 110;
+    int distance1 = hammingDistance(binaryToDecimal(S[0]),binaryToDecimal(c));
+    int distance2 = hammingDistance(binaryToDecimal(S[1]),binaryToDecimal(c));
+    if(distance1>distance2){
+        cout<<S[1];
+    }
+    else if(distance1<distance2){
+        cout<<S[0];
+    }
+    else{
+        cout<<S[0];  // Both the distances are equal in this case, so we can output any
+    }
+    return 0;
+}
